@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Alchemist's Companion — Join the Waitlist</title>
+<meta name="description" content="The first AI-powered tarot learning companion built on shadow work. Daily personalized cards. All 78 cards taught through the shadow lens. Coming soon.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Cinzel:wght@400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:   #060608;
+  --dark:    #0C0C10;
+  --panel:   #111118;
+  --panel2:  #17171F;
+  --gold:    #C8A84B;
+  --gold2:   #E5C86E;
+  --gold3:   #8A6E28;
+  --cream:   #EDE0C4;
+  --muted:   #9A8E78;
+  --dim:     #5A5448;
+  --border:  rgba(200,168,75,0.12);
+  --border2: rgba(200,168,75,0.28);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+background: var(–black);
+color: var(–cream);
+font-family: ‘Crimson Pro’, serif;
+overflow-x: hidden;
+cursor: default;
+}
+
+/* ── Atmosphere ── */
+.atmos {
+position: fixed; inset: 0; pointer-events: none; z-index: 0;
+background:
+radial-gradient(ellipse 80% 50% at 50% -10%, rgba(200,168,75,0.07) 0%, transparent 60%),
+radial-gradient(ellipse 40% 60% at 85% 70%, rgba(20,10,50,0.6) 0%, transparent 60%),
+radial-gradient(ellipse 60% 40% at 10% 80%, rgba(10,5,30,0.5) 0%, transparent 60%);
+}
+
+/* Grain */
+.grain {
+position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.35;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘f’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23f)’ opacity=‘0.04’/%3E%3C/svg%3E”);
+}
+
+/* Stars */
+#stars { position:fixed; inset:0; pointer-events:none; z-index:0; }
+.star {
+position:absolute; border-radius:50%;
+background:var(–gold2); opacity:0;
+animation: twinkle var(–d,3s) ease-in-out infinite var(–delay,0s);
+}
+@keyframes twinkle {
+0%,100%{opacity:0;transform:scale(.6)}
+50%{opacity:var(–op,.5);transform:scale(1)}
+}
+
+/* ── Layout ── */
+.page { position:relative; z-index:2; }
+
+/* ── NAV ── */
+nav {
+display:flex; align-items:center; justify-content:center;
+padding:28px 24px 20px;
+border-bottom: 1px solid var(–border);
+}
+.nav-logo {
+font-family:‘Cinzel’,serif; font-size:10px;
+letter-spacing:.45em; color:var(–gold3);
+text-transform:uppercase;
+}
+
+/* ── HERO ── */
+.hero {
+display:flex; flex-direction:column;
+align-items:center; text-align:center;
+padding: 80px 24px 72px;
+max-width: 680px; margin: 0 auto;
+}
+
+.hero-eyebrow {
+display:inline-flex; align-items:center; gap:10px;
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:.4em; color:var(–gold3);
+text-transform:uppercase; margin-bottom:28px;
+opacity:0; animation: revealUp .8s ease .1s forwards;
+}
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+content:’’; display:block;
+width:28px; height:1px;
+background:linear-gradient(90deg,transparent,var(–gold3));
+}
+.hero-eyebrow::after { transform:scaleX(-1); }
+
+.hero h1 {
+font-family:‘Cormorant’,serif;
+font-size:clamp(42px,10vw,80px);
+font-weight:700; line-height:1.05;
+color:var(–cream); margin-bottom:10px;
+opacity:0; animation: revealUp .9s ease .25s forwards;
+}
+.hero h1 em {
+font-style:italic; color:var(–gold);
+display:block;
+}
+
+.hero-sub {
+font-family:‘Cormorant’,serif;
+font-style:italic;
+font-size:clamp(18px,4vw,26px);
+color:var(–muted); margin-bottom:32px; line-height:1.5;
+opacity:0; animation: revealUp .9s ease .4s forwards;
+}
+
+.hero-statement {
+font-size:clamp(16px,3.5vw,20px);
+line-height:1.85; color:var(–cream);
+max-width:520px; margin-bottom:48px;
+opacity:0; animation: revealUp .9s ease .55s forwards;
+}
+.hero-statement strong {
+color:var(–gold); font-weight:600;
+}
+
+/* Waitlist form */
+.waitlist-form {
+width:100%; max-width:440px;
+opacity:0; animation: revealUp .9s ease .7s forwards;
+}
+
+.form-row {
+display:flex; gap:0;
+border:1px solid var(–border2);
+background:var(–panel);
+transition: border-color .3s;
+margin-bottom:12px;
+}
+.form-row:focus-within { border-color:var(–gold); }
+
+.form-row input {
+flex:1; background:transparent; border:none; outline:none;
+color:var(–cream); font-family:‘Crimson Pro’,serif;
+font-size:17px; padding:16px 20px;
+}
+.form-row input::placeholder { color:var(–dim); font-style:italic; }
+
+.submit-btn {
+background:var(–gold); border:none;
+color:var(–black); font-family:‘Cinzel’,serif;
+font-size:10px; letter-spacing:.25em;
+text-transform:uppercase; padding:16px 24px;
+cursor:pointer; transition:all .3s;
+white-space:nowrap; font-weight:600;
+}
+.submit-btn:hover { background:var(–gold2); }
+.submit-btn:disabled { opacity:.5; cursor:not-allowed; }
+
+.form-note {
+font-size:12px; color:var(–dim);
+font-style:italic; letter-spacing:.03em;
+text-align:center;
+}
+
+.success-msg {
+display:none;
+background:rgba(200,168,75,0.06);
+border:1px solid var(–border2);
+padding:20px 24px; text-align:center;
+}
+.success-msg p {
+font-family:‘Cormorant’,serif; font-style:italic;
+font-size:20px; color:var(–gold); line-height:1.6;
+}
+.success-msg span {
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:.3em; color:var(–dim);
+text-transform:uppercase; display:block; margin-top:8px;
+}
+
+/* Counter */
+.waitlist-social-proof {
+display:flex; align-items:center; gap:8px;
+margin-top:20px;
+opacity:0; animation: revealUp .9s ease .85s forwards;
+}
+.proof-dots { display:flex; gap:4px; }
+.proof-dot {
+width:24px; height:24px; border-radius:50%;
+border:1.5px solid var(–black);
+font-size:10px; display:flex; align-items:center; justify-content:center;
+}
+.proof-dot:nth-child(1){background:#2A1F0E}
+.proof-dot:nth-child(2){background:#1A1A2E;margin-left:-8px}
+.proof-dot:nth-child(3){background:#1F0E1A;margin-left:-8px}
+.proof-dot:nth-child(4){background:#0E1F1A;margin-left:-8px}
+.proof-text {
+font-size:13px; color:var(–muted); font-style:italic;
+}
+.proof-text strong { color:var(–cream); font-style:normal; }
+
+/* Gold line divider */
+.gold-divider {
+width:100%; max-width:600px; margin:0 auto;
+height:1px;
+background:linear-gradient(90deg,transparent,var(–gold3),transparent);
+}
+
+/* ── WHAT IS IT ── */
+.what-section {
+padding:80px 24px;
+max-width:680px; margin:0 auto;
+text-align:center;
+}
+
+.section-label {
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:.45em; color:var(–gold3);
+text-transform:uppercase; margin-bottom:20px;
+display:block;
+}
+
+.what-section h2 {
+font-family:‘Cormorant’,serif; font-weight:700;
+font-size:clamp(28px,6vw,46px);
+line-height:1.15; margin-bottom:24px;
+color:var(–cream);
+}
+.what-section h2 em { font-style:italic; color:var(–gold); }
+
+.what-section > p {
+font-size:clamp(16px,3vw,19px);
+line-height:1.9; color:var(–muted);
+max-width:540px; margin:0 auto 48px;
+}
+
+/* Feature cards */
+.features {
+display:grid; gap:2px;
+margin-bottom:48px;
+}
+
+.feature {
+display:flex; gap:20px; align-items:flex-start;
+padding:24px 28px;
+background:var(–panel);
+border:1px solid var(–border);
+text-align:left;
+transition:border-color .3s, background .3s;
+}
+.feature:hover {
+border-color:var(–border2);
+background:var(–panel2);
+}
+
+.feature-icon {
+font-size:24px; line-height:1;
+padding-top:3px; flex-shrink:0;
+}
+
+.feature-text h3 {
+font-family:‘Cinzel’,serif; font-size:11px;
+letter-spacing:.2em; color:var(–gold);
+text-transform:uppercase; margin-bottom:8px;
+}
+
+.feature-text p {
+font-size:clamp(15px,3vw,17px);
+line-height:1.75; color:var(–muted);
+}
+
+/* ── THE DIFFERENCE ── */
+.diff-section {
+padding:0 24px 80px;
+max-width:680px; margin:0 auto;
+}
+
+.diff-table {
+width:100%; border-collapse:collapse;
+margin-top:32px;
+}
+
+.diff-table th {
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:.3em; text-transform:uppercase;
+padding:14px 20px; text-align:left;
+border-bottom:1px solid var(–border2);
+}
+.diff-table th:first-child { color:var(–dim); }
+.diff-table th:last-child { color:var(–gold); }
+
+.diff-table td {
+padding:14px 20px; font-size:15px;
+border-bottom:1px solid var(–border);
+line-height:1.5;
+}
+.diff-table td:first-child { color:var(–dim); font-style:italic; }
+.diff-table td:last-child { color:var(–cream); }
+
+.diff-table tr:last-child td { border-bottom:none; }
+.diff-table tr:hover td { background:rgba(200,168,75,0.02); }
+
+/* ── FOUNDER OFFER ── */
+.founder-section {
+margin:0 24px 80px;
+max-width:632px; margin-left:auto; margin-right:auto;
+background:var(–panel);
+border:1px solid var(–border2);
+position:relative; overflow:hidden;
+padding:48px 36px;
+text-align:center;
+}
+
+.founder-section::before {
+content:’’;
+position:absolute; top:0; left:0; right:0; height:1px;
+background:linear-gradient(90deg,transparent,var(–gold),transparent);
+}
+
+.founder-badge {
+display:inline-block;
+font-family:‘Cinzel’,serif; font-size:8px;
+letter-spacing:.4em; text-transform:uppercase;
+color:var(–black); background:var(–gold);
+padding:6px 16px; margin-bottom:24px;
+}
+
+.founder-section h2 {
+font-family:‘Cormorant’,serif; font-weight:700;
+font-size:clamp(26px,5vw,40px);
+line-height:1.15; color:var(–cream); margin-bottom:8px;
+}
+.founder-section h2 em { color:var(–gold); font-style:italic; }
+
+.founder-price {
+font-family:‘Cormorant’,serif; font-style:italic;
+font-size:clamp(32px,7vw,52px); color:var(–gold);
+font-weight:700; display:block; margin:16px 0 4px;
+}
+.founder-price-note {
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:.3em; color:var(–dim);
+text-transform:uppercase; margin-bottom:28px; display:block;
+}
+
+.founder-perks {
+list-style:none; text-align:left;
+margin-bottom:32px; max-width:360px;
+margin-left:auto; margin-right:auto;
+}
+.founder-perks li {
+display:flex; align-items:baseline; gap:12px;
+padding:10px 0; border-bottom:1px solid var(–border);
+font-size:16px; color:var(–cream); line-height:1.5;
+}
+.founder-perks li:last-child { border-bottom:none; }
+.founder-perks li::before {
+content:‘✦’; color:var(–gold); font-size:8px; flex-shrink:0;
+}
+
+.founder-note {
+font-size:13px; color:var(–dim);
+font-style:italic; margin-top:16px;
+}
+
+/* ── WHO THIS IS FOR ── */
+.who-section {
+padding:0 24px 80px;
+max-width:680px; margin:0 auto; text-align:center;
+}
+
+.who-section h2 {
+font-family:‘Cormorant’,serif; font-weight:700;
+font-size:clamp(28px,5vw,42px);
+line-height:1.15; color:var(–cream); margin-bottom:40px;
+}
+.who-section h2 em { color:var(–gold); font-style:italic; }
+
+.who-list {
+display:flex; flex-direction:column; gap:0;
+text-align:left; margin-bottom:48px;
+}
+
+.who-item {
+display:flex; align-items:baseline; gap:16px;
+padding:18px 24px;
+border-bottom:1px solid var(–border);
+font-size:clamp(16px,3.5vw,19px); line-height:1.7;
+color:var(–cream);
+transition:background .2s;
+}
+.who-item:hover { background:rgba(200,168,75,0.03); }
+.who-dot {
+width:5px; height:5px; border-radius:50%;
+background:var(–gold); flex-shrink:0; margin-top:8px;
+}
+
+/* ── BOTTOM CTA ── */
+.bottom-cta {
+padding:80px 24px 100px;
+text-align:center; max-width:600px;
+margin:0 auto;
+}
+
+.bottom-cta h2 {
+font-family:‘Cormorant’,serif; font-weight:700;
+font-size:clamp(30px,7vw,54px);
+line-height:1.1; color:var(–cream);
+margin-bottom:16px;
+}
+.bottom-cta h2 em { color:var(–gold); font-style:italic; }
+
+.bottom-cta p {
+font-size:clamp(16px,3vw,19px);
+color:var(–muted); line-height:1.8;
+margin-bottom:40px; max-width:480px;
+margin-left:auto; margin-right:auto;
+}
+
+/* ── FOOTER ── */
+footer {
+border-top:1px solid var(–border);
+padding:24px; text-align:center;
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:.3em; color:var(–dim);
+text-transform:uppercase;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes revealUp {
+from { opacity:0; transform:translateY(16px); }
+to   { opacity:1; transform:translateY(0); }
+}
+
+.reveal {
+opacity:0; transform:translateY(20px);
+transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* Mobile */
+@media(max-width:480px){
+.hero { padding:60px 20px 56px; }
+.founder-section { padding:36px 24px; }
+.form-row { flex-direction:column; }
+.submit-btn { width:100%; padding:16px; }
+.diff-table td, .diff-table th { padding:12px 14px; font-size:13px; }
+}
+</style>
+
+</head>
+<body>
+
+<div id="stars"></div>
+<div class="atmos"></div>
+<div class="grain"></div>
+
+<div class="page">
+
+<!-- NAV -->
+
+<nav>
+  <span class="nav-logo">Cade the Alchemist</span>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="hero-eyebrow">Coming Soon</div>
+
+  <h1>The Alchemist's<br><em>Companion</em></h1>
+
+  <p class="hero-sub">The tarot app that teaches you<br>to read — and read yourself.</p>
+
+  <p class="hero-statement">
+    Not fortune telling. Not vague card meanings.<br>
+    <strong>Real tarot education through the shadow work lens</strong> — 
+    every card taught the way it was always meant to be: as a mirror for your inner world, your wounds, and your becoming.
+  </p>
+
+  <!-- FORM -->
+
+  <div class="waitlist-form">
+    <div id="formWrap">
+      <div class="form-row">
+        <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="email"/>
+        <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">Join Waitlist</button>
+      </div>
+      <p class="form-note">Free to join. Be first to access founding member pricing.</p>
+    </div>
+    <div class="success-msg" id="successMsg">
+      <p>You're in. The work begins soon.</p>
+      <span>We'll reach out before anyone else</span>
+    </div>
+  </div>
+
+  <div class="waitlist-social-proof">
+    <div class="proof-dots">
+      <div class="proof-dot">🌙</div>
+      <div class="proof-dot">☽</div>
+      <div class="proof-dot">✦</div>
+      <div class="proof-dot">🜂</div>
+    </div>
+    <p class="proof-text"><strong id="countDisplay">247</strong> people already on the waitlist</p>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- WHAT IS IT -->
+
+<section class="what-section">
+  <span class="section-label">What This Is</span>
+  <h2>Tarot the way it was<br><em>always meant to be taught</em></h2>
+  <p>Most tarot apps give you keywords. Generic meanings. Stripped-down definitions that miss the entire point. The Alchemist's Companion goes into the shadow — where the real learning lives.</p>
+
+  <div class="features">
+    <div class="feature reveal">
+      <span class="feature-icon">☽</span>
+      <div class="feature-text">
+        <h3>Your Card of the Day</h3>
+        <p>Personalized to your sun, moon, and rising sign. Every morning, a card chosen for you — with a message, a shadow invitation, and a journal prompt that actually makes you think.</p>
+      </div>
+    </div>
+    <div class="feature reveal">
+      <span class="feature-icon">✦</span>
+      <div class="feature-text">
+        <h3>The Full 78-Card Library</h3>
+        <p>Every card taught through the shadow work lens. Not just "what this card means" — but what wound it's pointing to, what it's asking you to excavate, and what the alchemy looks like.</p>
+      </div>
+    </div>
+    <div class="feature reveal">
+      <span class="feature-icon">🜂</span>
+      <div class="feature-text">
+        <h3>Built on the A.L.C.H.E.M.Y. Method</h3>
+        <p>Every reading, every card study, every journal prompt is grounded in a real framework for inner transformation — not spiritual bypassing. Awareness. Liberation. Reclamation. Your essence.</p>
+      </div>
+    </div>
+    <div class="feature reveal">
+      <span class="feature-icon">◎</span>
+      <div class="feature-text">
+        <h3>AI-Powered. Deeply Personal.</h3>
+        <p>The AI speaks in Cade's voice — warm, honest, shadow-aware. It doesn't give you generic readings. It meets you where you are and tells you what you need to hear.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- THE DIFFERENCE -->
+
+<section class="diff-section">
+  <span class="section-label" style="display:block;text-align:center;margin-bottom:12px">The Difference</span>
+  <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,5vw,38px);font-weight:700;text-align:center;color:var(--cream);margin-bottom:4px">
+    Every other tarot app.<br><em style="color:var(--gold);font-style:italic">Then this one.</em>
+  </h2>
+
+  <table class="diff-table reveal">
+    <thead>
+      <tr>
+        <th>Every other app</th>
+        <th>The Alchemist's Companion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Generic card meanings</td>
+        <td>Shadow-integrated teachings that go deep</td>
+      </tr>
+      <tr>
+        <td>Fortune telling</td>
+        <td>Self-knowledge and inner excavation</td>
+      </tr>
+      <tr>
+        <td>No personalization</td>
+        <td>Your card of the day tied to your actual placements</td>
+      </tr>
+      <tr>
+        <td>No real framework</td>
+        <td>The A.L.C.H.E.M.Y. Method woven into every card</td>
+      </tr>
+      <tr>
+        <td>Built by tech companies</td>
+        <td>Built by a real practitioner who has done the work</td>
+      </tr>
+      <tr>
+        <td>Teaches you about tarot</td>
+        <td>Teaches you about <em>yourself</em> — through tarot</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FOUNDER OFFER -->
+
+<div class="founder-section reveal">
+  <span class="founder-badge">Limited — First 100 Only</span>
+  <h2>Founding Member<br><em>Lifetime Access</em></h2>
+  <span class="founder-price">$44.44</span>
+  <span class="founder-price-note">One time · Never pay again</span>
+
+  <ul class="founder-perks">
+    <li>Lifetime access to the full app — free, forever</li>
+    <li>All 78 cards with complete shadow work teachings</li>
+    <li>Daily personalized Card of the Day based on your placements</li>
+    <li>Every future feature, included at no extra cost</li>
+    <li>Founding member community — early access, direct feedback line to Cade, and first to know everything</li>
+  </ul>
+
+  <div class="waitlist-form" style="max-width:400px;margin:0 auto;">
+    <div id="founderFormWrap">
+      <div class="form-row">
+        <input type="email" id="founderEmailInput" placeholder="Claim your founding spot"/>
+        <button class="submit-btn" onclick="handleFounderSubmit()">Claim Spot</button>
+      </div>
+    </div>
+    <div class="success-msg" id="founderSuccessMsg">
+      <p>Founding spot claimed. 🖤</p>
+      <span>We'll send payment details before launch</span>
+    </div>
+  </div>
+  <p class="founder-note">Price goes to $9.99/month at launch. This offer disappears at 100 signups.</p>
+</div>
+
+<!-- WHO THIS IS FOR -->
+
+<section class="who-section">
+  <h2>This is for you if<br><em>any of this is true</em></h2>
+
+  <div class="who-list">
+    <div class="who-item reveal"><div class="who-dot"></div>You've been drawn to tarot but every resource feels surface-level or too "love and light"</div>
+    <div class="who-item reveal"><div class="who-dot"></div>You're a reader who wants to go deeper — into the shadow side of the cards and yourself</div>
+    <div class="who-item reveal"><div class="who-dot"></div>You came into spirituality through difficulty, not aesthetics — and you're done with the bypassing</div>
+    <div class="who-item reveal"><div class="who-dot"></div>You want a daily practice that actually holds you accountable to your own becoming</div>
+    <div class="who-item reveal"><div class="who-dot"></div>You know there's more to you than the healed version you keep trying to perform</div>
+    <div class="who-item reveal"><div class="who-dot"></div>You're ready to use the cards as a mirror — not an escape</div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- BOTTOM CTA -->
+
+<section class="bottom-cta">
+  <h2>The work is<br><em>waiting for you.</em></h2>
+  <p>Join the waitlist now. Be first when the doors open. And if you're ready to go all in — claim your founding member spot before it's gone.</p>
+
+  <div class="waitlist-form" style="max-width:440px;margin:0 auto 16px;">
+    <div id="bottomFormWrap">
+      <div class="form-row">
+        <input type="email" id="bottomEmailInput" placeholder="your@email.com"/>
+        <button class="submit-btn" onclick="handleBottomSubmit()">Join Waitlist</button>
+      </div>
+    </div>
+    <div class="success-msg" id="bottomSuccessMsg">
+      <p>You're on the list. See you on the other side.</p>
+      <span>That's alchemy.</span>
+    </div>
+  </div>
+  <p style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;margin-top:8px">No spam. Ever. Just the work.</p>
+</section>
+
+<footer>
+  The Alchemist's Companion &nbsp;·&nbsp; Cade the Alchemist &nbsp;·&nbsp; © 2025
+</footer>
+
+</div><!-- .page -->
+
+<script>
+// ── Stars ──
+const starsEl = document.getElementById('stars');
+for(let i=0;i<60;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  const size=Math.random()*1.8+.4;
+  s.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*5}s;--delay:${Math.random()*6}s;--op:${.15+Math.random()*.5}`;
+  starsEl.appendChild(s);
+}
+
+// ── Scroll reveal ──
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// ── Animated counter ──
+let count = 247;
+function animateCount(){
+  const el=document.getElementById('countDisplay');
+  if(!el)return;
+  let start=0; const end=count;
+  const dur=1200; const step=dur/end;
+  let current=0;
+  const timer=setInterval(()=>{
+    current+=Math.ceil(end/60);
+    if(current>=end){current=end;clearInterval(timer);}
+    el.textContent=current.toLocaleString();
+  },step);
+}
+setTimeout(animateCount,1000);
+
+// ── Form handlers ──
+function collectEmail(emailId, wrapId, successId){
+  const email=document.getElementById(emailId).value.trim();
+  if(!email||!email.includes('@')){
+    document.getElementById(emailId).style.outline='1px solid rgba(200,100,100,0.5)';
+    return;
+  }
+
+  // Submit to Mailchimp
+  const mcUrl = 'https://outlook.us13.list-manage.com/subscribe/post?u=b20d17d16d68cd226b79896da&id=284314095c&f_id=006a00e9f0';
+  const formData = new FormData();
+  formData.append('EMAIL', email);
+  formData.append('b_b20d17d16d68cd226b79896da_284314095c', ''); // honeypot
+
+  fetch(mcUrl, {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors' // Mailchimp requires this
+  }).catch(()=>{}); // no-cors means we can't read response, that's okay
+
+  // Show success regardless (Mailchimp no-cors always looks like an error)
+  document.getElementById(wrapId).style.display='none';
+  document.getElementById(successId).style.display='block';
+  count++;
+  document.getElementById('countDisplay').textContent=count.toLocaleString();
+}
+
+function handleSubmit(){ collectEmail('emailInput','formWrap','successMsg'); }
+function handleFounderSubmit(){ collectEmail('founderEmailInput','founderFormWrap','founderSuccessMsg'); }
+function handleBottomSubmit(){ collectEmail('bottomEmailInput','bottomFormWrap','bottomSuccessMsg'); }
+
+// Enter key support
+['emailInput','founderEmailInput','bottomEmailInput'].forEach((id,i)=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){
+      [handleSubmit,handleFounderSubmit,handleBottomSubmit][i]();
+    }
+  });
+});
+</script>
+
+</body>
+</html>
