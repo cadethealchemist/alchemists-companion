@@ -718,6 +718,7 @@ function collectEmail(emailId, wrapId, successId){
   const mcUrl = 'https://outlook.us13.list-manage.com/subscribe/post?u=b20d17d16d68cd226b79896da&id=284314095c&f_id=006a00e9f0';
   const formData = new FormData();
   formData.append('EMAIL', email);
+  formData.append('tags', 'App Waitlist');
   formData.append('b_b20d17d16d68cd226b79896da_284314095c', ''); // honeypot
 
   fetch(mcUrl, {
