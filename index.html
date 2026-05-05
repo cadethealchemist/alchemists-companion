@@ -4,749 +4,1021 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Alchemist's Companion — Join the Waitlist</title>
-<meta name="description" content="The first AI-powered tarot learning companion built on shadow work. Daily personalized cards. All 78 cards taught through the shadow lens. Coming soon.">
+<title>The Alchemist's Companion</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Cinzel:wght@400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --black:   #060608;
-  --dark:    #0C0C10;
-  --panel:   #111118;
-  --panel2:  #17171F;
-  --gold:    #C8A84B;
-  --gold2:   #E5C86E;
-  --gold3:   #8A6E28;
-  --cream:   #EDE0C4;
-  --muted:   #9A8E78;
-  --dim:     #5A5448;
-  --border:  rgba(200,168,75,0.12);
-  --border2: rgba(200,168,75,0.28);
-}
-
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 
 body {
 background: #060608;
 color: #EDE0C4;
 font-family: ‘Crimson Pro’, serif;
+min-height: 100vh;
 overflow-x: hidden;
-cursor: default;
 }
 
-/* ── Atmosphere ── */
-.atmos {
-position: fixed; inset: 0; pointer-events: none; z-index: 0;
+/* Atmosphere */
+body::before {
+content:’’;
+position:fixed; inset:0;
 background:
-radial-gradient(ellipse 80% 50% at 50% -10%, rgba(200,168,75,0.07) 0%, transparent 60%),
-radial-gradient(ellipse 40% 60% at 85% 70%, rgba(20,10,50,0.6) 0%, transparent 60%),
-radial-gradient(ellipse 60% 40% at 10% 80%, rgba(10,5,30,0.5) 0%, transparent 60%);
+radial-gradient(ellipse 80% 50% at 50% -10%, rgba(200,168,75,0.06) 0%, transparent 60%),
+radial-gradient(ellipse 40% 60% at 85% 70%, rgba(20,10,50,0.5) 0%, transparent 60%);
+pointer-events:none; z-index:0;
 }
 
 /* Grain */
-.grain {
-position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.35;
-background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘f’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23f)’ opacity=‘0.04’/%3E%3C/svg%3E”);
-}
-
-/* Stars */
-#stars { position:fixed; inset:0; pointer-events:none; z-index:0; }
-.star {
-position:absolute; border-radius:50%;
-background:#E5C86E; opacity:0;
-animation: twinkle 3s ease-in-out infinite 0s;
-}
-@keyframes twinkle {
-0%,100%{opacity:0;transform:scale(.6)}
-50%{opacity:0.5;transform:scale(1)}
-}
-
-/* ── Layout ── */
-.page { position:relative; z-index:2; }
-
-/* ── NAV ── */
-nav {
-display:flex; align-items:center; justify-content:center;
-padding:28px 24px 20px;
-border-bottom: 1px solid rgba(200,168,75,0.12);
-}
-.nav-logo {
-font-family:‘Cinzel’,serif; font-size:10px;
-letter-spacing:.45em; color:#8A6E28;
-text-transform:uppercase;
-}
-
-/* ── HERO ── */
-.hero {
-display:flex; flex-direction:column;
-align-items:center; text-align:center;
-padding: 80px 24px 72px;
-max-width: 680px; margin: 0 auto;
-}
-
-.hero-eyebrow {
-display:inline-flex; align-items:center; gap:10px;
-font-family:‘Cinzel’,serif; font-size:9px;
-letter-spacing:.4em; color:#8A6E28;
-text-transform:uppercase; margin-bottom:28px;
-opacity:0; animation: revealUp .8s ease .1s forwards;
-}
-.hero-eyebrow::before,
-.hero-eyebrow::after {
-content:’’; display:block;
-width:28px; height:1px;
-background:linear-gradient(90deg,transparent,#8A6E28);
-}
-.hero-eyebrow::after { transform:scaleX(-1); }
-
-.hero h1 {
-font-family:‘Cormorant’,serif;
-font-size:clamp(42px,10vw,80px);
-font-weight:700; line-height:1.05;
-color:#EDE0C4; margin-bottom:10px;
-opacity:0; animation: revealUp .9s ease .25s forwards;
-}
-.hero h1 em {
-font-style:italic; color:#C8A84B;
-display:block;
-}
-
-.hero-sub {
-font-family:‘Cormorant’,serif;
-font-style:italic;
-font-size:clamp(18px,4vw,26px);
-color:#9A8E78; margin-bottom:32px; line-height:1.5;
-opacity:0; animation: revealUp .9s ease .4s forwards;
-}
-
-.hero-statement {
-font-size:clamp(16px,3.5vw,20px);
-line-height:1.85; color:#EDE0C4;
-max-width:520px; margin-bottom:48px;
-opacity:0; animation: revealUp .9s ease .55s forwards;
-}
-.hero-statement strong {
-color:#C8A84B; font-weight:600;
-}
-
-/* Waitlist form */
-.waitlist-form {
-width:100%; max-width:440px;
-opacity:0; animation: revealUp .9s ease .7s forwards;
-}
-
-.form-row {
-display:flex; gap:0;
-border:1px solid rgba(200,168,75,0.28);
-background:#111118;
-transition: border-color .3s;
-margin-bottom:12px;
-}
-.form-row:focus-within { border-color:#C8A84B; }
-
-.form-row input {
-flex:1; background:transparent; border:none; outline:none;
-color:#EDE0C4; font-family:‘Crimson Pro’,serif;
-font-size:17px; padding:16px 20px;
-}
-.form-row input::placeholder { color:#5A5448; font-style:italic; }
-
-.submit-btn {
-background:#C8A84B; border:none;
-color:#060608; font-family:‘Cinzel’,serif;
-font-size:10px; letter-spacing:.25em;
-text-transform:uppercase; padding:16px 24px;
-cursor:pointer; transition:all .3s;
-white-space:nowrap; font-weight:600;
-}
-.submit-btn:hover { background:#E5C86E; }
-.submit-btn:disabled { opacity:.5; cursor:not-allowed; }
-
-.form-note {
-font-size:12px; color:#5A5448;
-font-style:italic; letter-spacing:.03em;
-text-align:center;
-}
-
-.success-msg {
-display:none;
-background:rgba(200,168,75,0.06);
-border:1px solid rgba(200,168,75,0.28);
-padding:20px 24px; text-align:center;
-}
-.success-msg p {
-font-family:‘Cormorant’,serif; font-style:italic;
-font-size:20px; color:#C8A84B; line-height:1.6;
-}
-.success-msg span {
-font-family:‘Cinzel’,serif; font-size:9px;
-letter-spacing:.3em; color:#5A5448;
-text-transform:uppercase; display:block; margin-top:8px;
-}
-
-/* Counter */
-.waitlist-social-proof {
-display:flex; align-items:center; gap:8px;
-margin-top:20px;
-opacity:0; animation: revealUp .9s ease .85s forwards;
-}
-.proof-dots { display:flex; gap:4px; }
-.proof-dot {
-width:24px; height:24px; border-radius:50%;
-border:1.5px solid #060608;
-font-size:10px; display:flex; align-items:center; justify-content:center;
-}
-.proof-dot:nth-child(1){background:#2A1F0E}
-.proof-dot:nth-child(2){background:#1A1A2E;margin-left:-8px}
-.proof-dot:nth-child(3){background:#1F0E1A;margin-left:-8px}
-.proof-dot:nth-child(4){background:#0E1F1A;margin-left:-8px}
-.proof-text {
-font-size:13px; color:#9A8E78; font-style:italic;
-}
-.proof-text strong { color:#EDE0C4; font-style:normal; }
-
-/* Gold line divider */
-.gold-divider {
-width:100%; max-width:600px; margin:0 auto;
-height:1px;
-background:linear-gradient(90deg,transparent,#8A6E28,transparent);
-}
-
-/* ── WHAT IS IT ── */
-.what-section {
-padding:80px 24px;
-max-width:680px; margin:0 auto;
-text-align:center;
-}
-
-.section-label {
-font-family:‘Cinzel’,serif; font-size:9px;
-letter-spacing:.45em; color:#8A6E28;
-text-transform:uppercase; margin-bottom:20px;
-display:block;
-}
-
-.what-section h2 {
-font-family:‘Cormorant’,serif; font-weight:700;
-font-size:clamp(28px,6vw,46px);
-line-height:1.15; margin-bottom:24px;
-color:#EDE0C4;
-}
-.what-section h2 em { font-style:italic; color:#C8A84B; }
-
-.what-section > p {
-font-size:clamp(16px,3vw,19px);
-line-height:1.9; color:#9A8E78;
-max-width:540px; margin:0 auto 48px;
-}
-
-/* Feature cards */
-.features {
-display:grid; gap:2px;
-margin-bottom:48px;
-}
-
-.feature {
-display:flex; gap:20px; align-items:flex-start;
-padding:24px 28px;
-background:#111118;
-border:1px solid rgba(200,168,75,0.12);
-text-align:left;
-transition:border-color .3s, background .3s;
-}
-.feature:hover {
-border-color:rgba(200,168,75,0.28);
-background:#17171F;
-}
-
-.feature-icon {
-font-size:24px; line-height:1;
-padding-top:3px; flex-shrink:0;
-}
-
-.feature-text h3 {
-font-family:‘Cinzel’,serif; font-size:11px;
-letter-spacing:.2em; color:#C8A84B;
-text-transform:uppercase; margin-bottom:8px;
-}
-
-.feature-text p {
-font-size:clamp(15px,3vw,17px);
-line-height:1.75; color:#9A8E78;
-}
-
-/* ── THE DIFFERENCE ── */
-.diff-section {
-padding:0 24px 80px;
-max-width:680px; margin:0 auto;
-}
-
-.diff-table {
-width:100%; border-collapse:collapse;
-margin-top:32px;
-}
-
-.diff-table th {
-font-family:‘Cinzel’,serif; font-size:9px;
-letter-spacing:.3em; text-transform:uppercase;
-padding:14px 20px; text-align:left;
-border-bottom:1px solid rgba(200,168,75,0.28);
-}
-.diff-table th:first-child { color:#5A5448; }
-.diff-table th:last-child { color:#C8A84B; }
-
-.diff-table td {
-padding:14px 20px; font-size:15px;
-border-bottom:1px solid rgba(200,168,75,0.12);
-line-height:1.5;
-}
-.diff-table td:first-child { color:#5A5448; font-style:italic; }
-.diff-table td:last-child { color:#EDE0C4; }
-
-.diff-table tr:last-child td { border-bottom:none; }
-.diff-table tr:hover td { background:rgba(200,168,75,0.02); }
-
-/* ── FOUNDER OFFER ── */
-.founder-section {
-margin:0 24px 80px;
-max-width:632px; margin-left:auto; margin-right:auto;
-background:#111118;
-border:1px solid rgba(200,168,75,0.28);
-position:relative; overflow:hidden;
-padding:48px 36px;
-text-align:center;
-}
-
-.founder-section::before {
+body::after {
 content:’’;
-position:absolute; top:0; left:0; right:0; height:1px;
+position:fixed; inset:0;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘f’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23f)’ opacity=‘0.035’/%3E%3C/svg%3E”);
+pointer-events:none; z-index:1; opacity:0.4;
+}
+
+.app { position:relative; z-index:2; max-width:480px; margin:0 auto; min-height:100vh; display:flex; flex-direction:column; }
+
+/* ── ONBOARDING ── */
+#onboarding {
+flex:1; display:flex; flex-direction:column;
+align-items:center; padding:52px 28px 60px;
+text-align:center;
+}
+
+.logo-wrap {
+width:68px; height:68px;
+border:1px solid #6B5A28;
+border-radius:50%;
+display:flex; align-items:center; justify-content:center;
+margin-bottom:24px;
+animation: glowPulse 4s ease-in-out infinite;
+}
+.logo-wrap span { font-size:24px; }
+
+@keyframes glowPulse {
+0%,100% { box-shadow:0 0 0 rgba(200,168,75,0); border-color:#6B5A28; }
+50% { box-shadow:0 0 20px rgba(200,168,75,0.2); border-color:rgba(200,168,75,0.5); }
+}
+
+.app-eyebrow {
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:0.45em; color:#6B5A28;
+text-transform:uppercase; margin-bottom:12px;
+}
+
+#onboarding h1 {
+font-family:‘Cormorant’,serif; font-size:clamp(30px,7vw,42px);
+font-weight:700; line-height:1.1; color:#EDE0C4;
+margin-bottom:8px;
+}
+#onboarding h1 em { font-style:italic; color:#C8A84B; display:block; }
+
+.welcome-text {
+font-family:‘Cormorant’,serif; font-style:italic;
+font-size:17px; color:#9A8E78; line-height:1.7;
+margin-bottom:36px; max-width:320px;
+}
+
+.form-block { width:100%; margin-bottom:24px; }
+
+.form-label {
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:0.35em; color:#6B5A28;
+text-transform:uppercase; display:block;
+margin-bottom:10px; text-align:left;
+}
+
+.sign-grid {
+display:grid; grid-template-columns:repeat(4,1fr); gap:6px;
+}
+
+.sign-btn {
+background:#111118; border:1px solid rgba(200,168,75,0.12);
+color:#9A8E78; font-family:‘Crimson Pro’,serif;
+padding:10px 4px; cursor:pointer; transition:all 0.25s;
+display:flex; flex-direction:column; align-items:center; gap:3px;
+}
+.sign-btn .sym { font-size:17px; }
+.sign-btn .nm { font-family:‘Cinzel’,serif; font-size:8px; letter-spacing:0.1em; }
+.sign-btn:hover { border-color:rgba(200,168,75,0.3); color:#EDE0C4; }
+.sign-btn.picked { border-color:#C8A84B; color:#C8A84B; background:rgba(200,168,75,0.07); }
+
+.begin-btn {
+width:100%; background:transparent;
+border:1px solid #C8A84B; color:#C8A84B;
+font-family:‘Cinzel’,serif; font-size:11px;
+letter-spacing:0.3em; text-transform:uppercase;
+padding:18px; cursor:pointer; transition:all 0.4s;
+margin-top:8px; position:relative; overflow:hidden;
+}
+.begin-btn::before {
+content:’’; position:absolute; inset:0;
+background:#C8A84B; transform:translateX(-100%);
+transition:transform 0.4s; z-index:-1;
+}
+.begin-btn:hover { color:#060608; }
+.begin-btn:hover::before { transform:translateX(0); }
+.begin-btn:disabled { opacity:0.25; cursor:not-allowed; }
+
+/* ── MAIN APP ── */
+#mainapp { display:none; flex-direction:column; flex:1; }
+
+nav {
+display:flex; align-items:center; justify-content:space-between;
+padding:18px 24px;
+border-bottom:1px solid rgba(200,168,75,0.12);
+position:sticky; top:0; z-index:10;
+background:rgba(6,6,8,0.95);
+backdrop-filter:blur(12px);
+}
+
+.nav-brand {
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:0.3em; color:#C8A84B; text-transform:uppercase;
+}
+
+.nav-tabs { display:flex; gap:0; }
+.nav-tab {
+background:transparent; border:none; border-bottom:2px solid transparent;
+font-family:‘Cinzel’,serif; font-size:9px; letter-spacing:0.2em;
+color:#9A8E78; text-transform:uppercase;
+padding:8px 14px; cursor:pointer; transition:all 0.25s;
+}
+.nav-tab.active { color:#C8A84B; border-bottom-color:#C8A84B; }
+.nav-tab:hover { color:#EDE0C4; }
+
+.tab-panel { display:none; flex-direction:column; flex:1; padding-bottom:48px; }
+.tab-panel.active { display:flex; }
+
+/* ── TODAY TAB ── */
+#tab-today { padding:24px 24px 0; gap:20px; }
+
+.greeting {
+font-family:‘Cormorant’,serif; font-style:italic;
+font-size:16px; color:#9A8E78;
+}
+.greeting strong { color:#EDE0C4; font-style:normal; font-weight:400; }
+
+.signs-row { display:flex; gap:8px; flex-wrap:wrap; }
+.sign-chip {
+font-family:‘Cinzel’,serif; font-size:8px;
+letter-spacing:0.2em; text-transform:uppercase;
+color:#6B5A28; border:1px solid rgba(200,168,75,0.12);
+padding:5px 10px;
+}
+.sign-chip span { color:#C8A84B; }
+
+/* Card of the Day */
+.cotd-loading {
+display:flex; flex-direction:column;
+align-items:center; justify-content:center;
+padding:60px 20px; gap:16px; text-align:center;
+}
+.spin { font-size:28px; color:#6B5A28; animation:spinSlow 6s linear infinite; }
+@keyframes spinSlow { to { transform:rotate(360deg); } }
+.cotd-loading p {
+font-family:‘Cormorant’,serif; font-style:italic;
+font-size:17px; color:#9A8E78;
+animation:breathe 2s ease-in-out infinite;
+}
+@keyframes breathe { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+.cotd-card {
+background:#111118;
+border:1px solid rgba(200,168,75,0.25);
+position:relative; overflow:hidden;
+}
+.cotd-card::before {
+content:’’; position:absolute; top:0; left:0; right:0; height:1px;
 background:linear-gradient(90deg,transparent,#C8A84B,transparent);
 }
 
-.founder-badge {
-display:inline-block;
-font-family:‘Cinzel’,serif; font-size:8px;
-letter-spacing:.4em; text-transform:uppercase;
-color:#060608; background:#C8A84B;
-padding:6px 16px; margin-bottom:24px;
-}
-
-.founder-section h2 {
-font-family:‘Cormorant’,serif; font-weight:700;
-font-size:clamp(26px,5vw,40px);
-line-height:1.15; color:#EDE0C4; margin-bottom:8px;
-}
-.founder-section h2 em { color:#C8A84B; font-style:italic; }
-
-.founder-price {
-font-family:‘Cormorant’,serif; font-style:italic;
-font-size:clamp(32px,7vw,52px); color:#C8A84B;
-font-weight:700; display:block; margin:16px 0 4px;
-}
-.founder-price-note {
-font-family:‘Cinzel’,serif; font-size:9px;
-letter-spacing:.3em; color:#5A5448;
-text-transform:uppercase; margin-bottom:28px; display:block;
-}
-
-.founder-perks {
-list-style:none; text-align:left;
-margin-bottom:32px; max-width:360px;
-margin-left:auto; margin-right:auto;
-}
-.founder-perks li {
-display:flex; align-items:baseline; gap:12px;
-padding:10px 0; border-bottom:1px solid rgba(200,168,75,0.12);
-font-size:16px; color:#EDE0C4; line-height:1.5;
-}
-.founder-perks li:last-child { border-bottom:none; }
-.founder-perks li::before {
-content:‘✦’; color:#C8A84B; font-size:8px; flex-shrink:0;
-}
-
-.founder-note {
-font-size:13px; color:#5A5448;
-font-style:italic; margin-top:16px;
-}
-
-/* ── WHO THIS IS FOR ── */
-.who-section {
-padding:0 24px 80px;
-max-width:680px; margin:0 auto; text-align:center;
-}
-
-.who-section h2 {
-font-family:‘Cormorant’,serif; font-weight:700;
-font-size:clamp(28px,5vw,42px);
-line-height:1.15; color:#EDE0C4; margin-bottom:40px;
-}
-.who-section h2 em { color:#C8A84B; font-style:italic; }
-
-.who-list {
-display:flex; flex-direction:column; gap:0;
-text-align:left; margin-bottom:48px;
-}
-
-.who-item {
-display:flex; align-items:baseline; gap:16px;
-padding:18px 24px;
+.cotd-top {
+display:flex; align-items:stretch;
 border-bottom:1px solid rgba(200,168,75,0.12);
-font-size:clamp(16px,3.5vw,19px); line-height:1.7;
-color:#EDE0C4;
-transition:background .2s;
-}
-.who-item:hover { background:rgba(200,168,75,0.03); }
-.who-dot {
-width:5px; height:5px; border-radius:50%;
-background:#C8A84B; flex-shrink:0; margin-top:8px;
 }
 
-/* ── BOTTOM CTA ── */
-.bottom-cta {
-padding:80px 24px 100px;
-text-align:center; max-width:600px;
-margin:0 auto;
+.cotd-art {
+width:100px; min-width:100px;
+background:#0C0C10;
+border-right:1px solid rgba(200,168,75,0.12);
+display:flex; flex-direction:column;
+align-items:center; justify-content:center;
+padding:20px 10px; gap:8px;
+position:relative;
 }
 
-.bottom-cta h2 {
+.card-art-frame {
+width:72px; height:120px;
+border:1px solid rgba(200,168,75,0.3);
+background:linear-gradient(160deg, #13131A 0%, #0A0A10 100%);
+display:flex; flex-direction:column;
+align-items:center; justify-content:center;
+position:relative; gap:6px; padding:8px;
+}
+.card-art-frame::before {
+content:’’; position:absolute; inset:3px;
+border:1px solid rgba(200,168,75,0.08);
+}
+.card-art-roman {
+font-family:‘Cinzel’,serif; font-size:8px;
+letter-spacing:0.2em; color:#6B5A28;
+}
+.card-art-icon { font-size:26px; line-height:1; }
+.card-art-name {
+font-family:‘Cinzel’,serif; font-size:7px;
+letter-spacing:0.1em; color:#C8A84B;
+text-transform:uppercase; text-align:center; line-height:1.4;
+}
+
+.cotd-info {
+flex:1; padding:18px 16px;
+display:flex; flex-direction:column; justify-content:center; gap:5px;
+}
+.cotd-date {
+font-family:‘Cinzel’,serif; font-size:8px;
+letter-spacing:0.3em; color:#6B5A28; text-transform:uppercase;
+}
+.cotd-name {
 font-family:‘Cormorant’,serif; font-weight:700;
-font-size:clamp(30px,7vw,54px);
-line-height:1.1; color:#EDE0C4;
-margin-bottom:16px;
+font-size:22px; color:#EDE0C4; line-height:1.2;
 }
-.bottom-cta h2 em { color:#C8A84B; font-style:italic; }
-
-.bottom-cta p {
-font-size:clamp(16px,3vw,19px);
-color:#9A8E78; line-height:1.8;
-margin-bottom:40px; max-width:480px;
-margin-left:auto; margin-right:auto;
+.cotd-keywords {
+font-size:13px; color:#9A8E78; font-style:italic;
 }
 
-/* ── FOOTER ── */
-footer {
-border-top:1px solid rgba(200,168,75,0.12);
-padding:24px; text-align:center;
+.cotd-body { padding:20px; display:flex; flex-direction:column; gap:16px; }
+
+.cotd-message {
+font-size:16px; line-height:1.85; color:#EDE0C4;
+}
+
+.shadow-box {
+background:rgba(0,0,0,0.3);
+border-left:2px solid #6B5A28;
+padding:14px 16px;
+}
+.shadow-label {
+font-family:‘Cinzel’,serif; font-size:8px;
+letter-spacing:0.3em; color:#6B5A28;
+text-transform:uppercase; margin-bottom:6px;
+}
+.shadow-text {
+font-size:14px; font-style:italic;
+color:#9A8E78; line-height:1.7;
+}
+
+/* Journal section */
+.journal-section {
+border:1px solid rgba(200,168,75,0.12);
+background:#0C0C10; padding:20px;
+display:flex; flex-direction:column; gap:12px;
+}
+.journal-header {
+display:flex; align-items:center; gap:10px;
+}
+.journal-label {
 font-family:‘Cinzel’,serif; font-size:9px;
-letter-spacing:.3em; color:#5A5448;
+letter-spacing:0.3em; color:#C8A84B;
 text-transform:uppercase;
 }
-
-/* ── ANIMATIONS ── */
-@keyframes revealUp {
-from { opacity:0; transform:translateY(16px); }
-to   { opacity:1; transform:translateY(0); }
+.journal-prompts { display:flex; flex-direction:column; gap:10px; }
+.journal-prompt {
+font-size:15px; font-style:italic;
+color:#EDE0C4; line-height:1.7;
+padding-left:12px;
+border-left:1px solid rgba(200,168,75,0.2);
+}
+.journal-textarea {
+width:100%; background:rgba(200,168,75,0.03);
+border:1px solid rgba(200,168,75,0.15);
+color:#EDE0C4; font-family:‘Crimson Pro’,serif;
+font-size:15px; line-height:1.7; padding:14px 16px;
+resize:none; outline:none; min-height:100px;
+transition:border-color 0.3s;
+}
+.journal-textarea::placeholder { color:#5A5448; font-style:italic; }
+.journal-textarea:focus { border-color:rgba(200,168,75,0.4); }
+.save-btn {
+background:transparent; border:1px solid rgba(200,168,75,0.3);
+color:#9A8E78; font-family:‘Cinzel’,serif;
+font-size:9px; letter-spacing:0.25em; text-transform:uppercase;
+padding:12px; cursor:pointer; transition:all 0.3s; align-self:flex-end;
+}
+.save-btn:hover { border-color:#C8A84B; color:#C8A84B; }
+.save-confirm {
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:0.2em; color:#6B5A28;
+text-transform:uppercase; text-align:center;
+display:none;
 }
 
-.reveal {
-opacity:0; transform:translateY(20px);
-transition:opacity .7s ease, transform .7s ease;
+/* Study this card link */
+.study-link {
+display:flex; align-items:center; justify-content:space-between;
+padding:14px 18px; border:1px solid rgba(200,168,75,0.12);
+background:transparent; color:#9A8E78;
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:0.2em; text-transform:uppercase;
+cursor:pointer; transition:all 0.25s; width:100%;
 }
-.reveal.visible { opacity:1; transform:translateY(0); }
+.study-link:hover { border-color:rgba(200,168,75,0.3); color:#C8A84B; }
 
-/* Mobile */
-@media(max-width:480px){
-.hero { padding:60px 20px 56px; }
-.founder-section { padding:36px 24px; }
-.form-row { flex-direction:column; }
-.submit-btn { width:100%; padding:16px; }
-.diff-table td, .diff-table th { padding:12px 14px; font-size:13px; }
+/* ── LIBRARY TAB ── */
+#tab-library { gap:0; }
+
+.lib-header { padding:24px 24px 16px; border-bottom:1px solid rgba(200,168,75,0.12); }
+.lib-header h2 {
+font-family:‘Cormorant’,serif; font-weight:700;
+font-size:24px; color:#EDE0C4; margin-bottom:6px;
 }
+.lib-header p { font-size:14px; color:#9A8E78; line-height:1.6; }
+
+.suite-tabs {
+display:flex; border-bottom:1px solid rgba(200,168,75,0.12);
+overflow-x:auto; padding:0 24px; scrollbar-width:none;
+}
+.suite-tabs::-webkit-scrollbar { display:none; }
+.suite-tab {
+background:none; border:none; border-bottom:2px solid transparent;
+font-family:‘Cinzel’,serif; font-size:8px; letter-spacing:0.2em;
+color:#9A8E78; text-transform:uppercase;
+padding:12px 12px; cursor:pointer; transition:all 0.2s; white-space:nowrap;
+}
+.suite-tab.active { color:#C8A84B; border-bottom-color:#C8A84B; }
+
+.cards-list { padding:0 24px; margin-top:16px; }
+.card-row {
+display:flex; align-items:center; gap:14px;
+padding:14px 0; border-bottom:1px solid rgba(200,168,75,0.08);
+cursor:pointer; transition:all 0.2s;
+}
+.card-row:last-child { border-bottom:none; }
+.card-row:hover .cr-name { color:#C8A84B; }
+
+.cr-icon {
+width:42px; height:42px; background:#111118;
+border:1px solid rgba(200,168,75,0.12);
+display:flex; align-items:center; justify-content:center;
+font-size:18px; flex-shrink:0;
+}
+.cr-info { flex:1; }
+.cr-name {
+font-family:‘Cinzel’,serif; font-size:10px;
+letter-spacing:0.15em; color:#EDE0C4;
+text-transform:uppercase; margin-bottom:3px; transition:color 0.2s;
+}
+.cr-keywords { font-size:12px; color:#9A8E78; font-style:italic; }
+.cr-arrow { color:#6B5A28; font-size:12px; }
+
+/* ── CARD DETAIL ── */
+.card-detail {
+display:none; position:fixed; inset:0; z-index:100;
+background:#060608; flex-direction:column;
+overflow-y:auto; animation:slideUp 0.3s ease;
+}
+.card-detail.open { display:flex; }
+@keyframes slideUp {
+from { transform:translateY(16px); opacity:0; }
+to { transform:translateY(0); opacity:1; }
+}
+
+.detail-nav {
+display:flex; align-items:center; gap:16px;
+padding:18px 24px; border-bottom:1px solid rgba(200,168,75,0.12);
+position:sticky; top:0; background:rgba(6,6,8,0.98);
+backdrop-filter:blur(12px); z-index:10;
+}
+.detail-back {
+background:none; border:none; color:#9A8E78;
+font-size:20px; cursor:pointer; transition:color 0.2s; padding:4px;
+}
+.detail-back:hover { color:#C8A84B; }
+.detail-title {
+font-family:‘Cinzel’,serif; font-size:10px;
+letter-spacing:0.3em; color:#C8A84B; text-transform:uppercase;
+}
+
+.detail-body { padding:28px 24px; display:flex; flex-direction:column; gap:24px; max-width:480px; margin:0 auto; width:100%; }
+
+.detail-visual { display:flex; gap:20px; align-items:flex-start; }
+.detail-card-face {
+width:88px; min-width:88px; aspect-ratio:2/3.4;
+background:#0C0C10; border:1px solid rgba(200,168,75,0.3);
+display:flex; flex-direction:column;
+align-items:center; justify-content:center;
+padding:10px 8px; gap:6px; position:relative;
+}
+.detail-card-face::before {
+content:’’; position:absolute; inset:3px;
+border:1px solid rgba(200,168,75,0.08);
+}
+.dcf-roman { font-family:‘Cinzel’,serif; font-size:8px; letter-spacing:0.2em; color:#6B5A28; }
+.dcf-icon { font-size:26px; }
+.dcf-name { font-family:‘Cinzel’,serif; font-size:7px; letter-spacing:0.1em; color:#C8A84B; text-transform:uppercase; text-align:center; line-height:1.4; }
+
+.detail-quickinfo { flex:1; display:flex; flex-direction:column; gap:10px; }
+.dq-label { font-family:‘Cinzel’,serif; font-size:8px; letter-spacing:0.3em; color:#6B5A28; text-transform:uppercase; margin-bottom:3px; }
+.dq-val { font-size:14px; color:#EDE0C4; line-height:1.5; }
+
+.detail-section { }
+.ds-heading {
+font-family:‘Cinzel’,serif; font-size:9px;
+letter-spacing:0.35em; color:#C8A84B;
+text-transform:uppercase; margin-bottom:12px;
+padding-bottom:8px; border-bottom:1px solid rgba(200,168,75,0.12);
+}
+.ds-text { font-size:16px; line-height:1.85; color:#EDE0C4; }
+
+.detail-shadow {
+background:rgba(0,0,0,0.4);
+border-left:2px solid #6B5A28; padding:16px 18px;
+}
+.detail-shadow .ds-heading { color:#6B5A28; }
+
+.kw-list { display:flex; flex-wrap:wrap; gap:6px; }
+.kw-tag {
+font-family:‘Cinzel’,serif; font-size:8px; letter-spacing:0.2em;
+text-transform:uppercase; color:#9A8E78;
+border:1px solid rgba(200,168,75,0.12); padding:5px 10px;
+}
+
+.detail-loading {
+flex:1; display:flex; flex-direction:column;
+align-items:center; justify-content:center;
+gap:16px; padding:60px 20px; text-align:center;
+}
+
+/* Utility */
+.hidden { display:none !important; }
+.fade-in { animation:fadeIn 0.4s ease forwards; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:#6B5A28; border-radius:2px; }
 </style>
 
 </head>
 <body>
+<div class="app">
 
-<div id="stars"></div>
-<div class="atmos"></div>
-<div class="grain"></div>
+<!-- ONBOARDING -->
 
-<div class="page">
-
-<!-- NAV -->
-
-<nav>
-  <span class="nav-logo">Cade the Alchemist</span>
-</nav>
-
-<!-- HERO -->
-
-<section class="hero">
-  <div class="hero-eyebrow">Coming Soon</div>
-
+<div id="onboarding">
+  <div class="logo-wrap"><span>🜂</span></div>
+  <p class="app-eyebrow">Cade the Alchemist</p>
   <h1>The Alchemist's<br><em>Companion</em></h1>
+  <p class="welcome-text">Hey bestie — welcome. Before we dive in, let me get to know your energy a little. Tell me your placements so I can make this experience truly yours.</p>
 
-  <p class="hero-sub">The tarot app that teaches you<br>to read — and read yourself.</p>
-
-  <p class="hero-statement">
-    Not fortune telling. Not vague card meanings.<br>
-    <strong>Real tarot education through the shadow work lens</strong> — 
-    every card taught the way it was always meant to be: as a mirror for your inner world, your wounds, and your becoming.
-  </p>
-
-  <!-- FORM -->
-
-  <div class="waitlist-form">
-    <div id="formWrap">
-      <div class="form-row">
-        <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="email"/>
-        <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">Join Waitlist</button>
-      </div>
-      <p class="form-note">Free to join. Be first to access founding member pricing.</p>
-    </div>
-    <div class="success-msg" id="successMsg">
-      <p>You're in. The work begins soon.</p>
-      <span>We'll reach out before anyone else</span>
-    </div>
+  <div class="form-block">
+    <label class="form-label">Your Sun Sign</label>
+    <div class="sign-grid" id="sunGrid"></div>
+  </div>
+  <div class="form-block">
+    <label class="form-label">Your Moon Sign</label>
+    <div class="sign-grid" id="moonGrid"></div>
+  </div>
+  <div class="form-block">
+    <label class="form-label">Your Rising Sign</label>
+    <div class="sign-grid" id="risingGrid"></div>
   </div>
 
-  <div class="waitlist-social-proof">
-    <div class="proof-dots">
-      <div class="proof-dot">🌙</div>
-      <div class="proof-dot">☽</div>
-      <div class="proof-dot">✦</div>
-      <div class="proof-dot">🜂</div>
-    </div>
-    <p class="proof-text"><strong id="countDisplay">247</strong> people already on the waitlist</p>
-  </div>
-</section>
+<button class="begin-btn" id="beginBtn" disabled>Let’s Begin the Work</button>
 
-<div class="gold-divider"></div>
-
-<!-- WHAT IS IT -->
-
-<section class="what-section">
-  <span class="section-label">What This Is</span>
-  <h2>Tarot the way it was<br><em>always meant to be taught</em></h2>
-  <p>Most tarot apps give you keywords. Generic meanings. Stripped-down definitions that miss the entire point. The Alchemist's Companion goes into the shadow — where the real learning lives.</p>
-
-  <div class="features">
-    <div class="feature reveal">
-      <span class="feature-icon">☽</span>
-      <div class="feature-text">
-        <h3>Your Card of the Day</h3>
-        <p>Personalized to your sun, moon, and rising sign. Every morning, a card chosen for you — with a message, a shadow invitation, and a journal prompt that actually makes you think.</p>
-      </div>
-    </div>
-    <div class="feature reveal">
-      <span class="feature-icon">✦</span>
-      <div class="feature-text">
-        <h3>The Full 78-Card Library</h3>
-        <p>Every card taught through the shadow work lens. Not just "what this card means" — but what wound it's pointing to, what it's asking you to excavate, and what the alchemy looks like.</p>
-      </div>
-    </div>
-    <div class="feature reveal">
-      <span class="feature-icon">🜂</span>
-      <div class="feature-text">
-        <h3>Built on the A.L.C.H.E.M.Y. Method</h3>
-        <p>Every reading, every card study, every journal prompt is grounded in a real framework for inner transformation — not spiritual bypassing. Awareness. Liberation. Reclamation. Your essence.</p>
-      </div>
-    </div>
-    <div class="feature reveal">
-      <span class="feature-icon">◎</span>
-      <div class="feature-text">
-        <h3>AI-Powered. Deeply Personal.</h3>
-        <p>The AI speaks in Cade's voice — warm, honest, shadow-aware. It doesn't give you generic readings. It meets you where you are and tells you what you need to hear.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="gold-divider"></div>
-
-<!-- THE DIFFERENCE -->
-
-<section class="diff-section">
-  <span class="section-label" style="display:block;text-align:center;margin-bottom:12px">The Difference</span>
-  <h2 style="font-family:'Cormorant',serif;font-size:clamp(26px,5vw,38px);font-weight:700;text-align:center;color:#EDE0C4;margin-bottom:4px">
-    Every other tarot app.<br><em style="color:#C8A84B;font-style:italic">Then this one.</em>
-  </h2>
-
-  <table class="diff-table reveal">
-    <thead>
-      <tr>
-        <th>Every other app</th>
-        <th>The Alchemist's Companion</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Generic card meanings</td>
-        <td>Shadow-integrated teachings that go deep</td>
-      </tr>
-      <tr>
-        <td>Fortune telling</td>
-        <td>Self-knowledge and inner excavation</td>
-      </tr>
-      <tr>
-        <td>No personalization</td>
-        <td>Your card of the day tied to your actual placements</td>
-      </tr>
-      <tr>
-        <td>No real framework</td>
-        <td>The A.L.C.H.E.M.Y. Method woven into every card</td>
-      </tr>
-      <tr>
-        <td>Built by tech companies</td>
-        <td>Built by a real practitioner who has done the work</td>
-      </tr>
-      <tr>
-        <td>Teaches you about tarot</td>
-        <td>Teaches you about <em>yourself</em> — through tarot</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<!-- FOUNDER OFFER -->
-
-<div class="founder-section reveal">
-  <span class="founder-badge">Limited — First 100 Only</span>
-  <h2>Founding Member<br><em>Lifetime Access</em></h2>
-  <span class="founder-price">$44.44</span>
-  <span class="founder-price-note">One time · Never pay again</span>
-
-  <ul class="founder-perks">
-    <li>Lifetime access to the full app — free, forever</li>
-    <li>All 78 cards with complete shadow work teachings</li>
-    <li>Daily personalized Card of the Day based on your placements</li>
-    <li>Every future feature, included at no extra cost</li>
-    <li>Founding member community — early access, direct feedback line to Cade, and first to know everything</li>
-  </ul>
-
-  <div class="waitlist-form" style="max-width:400px;margin:0 auto;">
-    <div id="founderFormWrap">
-      <div class="form-row">
-        <input type="email" id="founderEmailInput" placeholder="Claim your founding spot"/>
-        <button class="submit-btn" onclick="handleFounderSubmit()">Claim Spot</button>
-      </div>
-    </div>
-    <div class="success-msg" id="founderSuccessMsg">
-      <p>Founding spot claimed. 🖤</p>
-      <span>We'll send payment details before launch</span>
-    </div>
-  </div>
-  <p class="founder-note">Price goes to $9.99/month at launch. This offer disappears at 100 signups.</p>
 </div>
 
-<!-- WHO THIS IS FOR -->
+<!-- MAIN APP -->
 
-<section class="who-section">
-  <h2>This is for you if<br><em>any of this is true</em></h2>
-
-  <div class="who-list">
-    <div class="who-item reveal"><div class="who-dot"></div>You've been drawn to tarot but every resource feels surface-level or too "love and light"</div>
-    <div class="who-item reveal"><div class="who-dot"></div>You're a reader who wants to go deeper — into the shadow side of the cards and yourself</div>
-    <div class="who-item reveal"><div class="who-dot"></div>You came into spirituality through difficulty, not aesthetics — and you're done with the bypassing</div>
-    <div class="who-item reveal"><div class="who-dot"></div>You want a daily practice that actually holds you accountable to your own becoming</div>
-    <div class="who-item reveal"><div class="who-dot"></div>You know there's more to you than the healed version you keep trying to perform</div>
-    <div class="who-item reveal"><div class="who-dot"></div>You're ready to use the cards as a mirror — not an escape</div>
-  </div>
-</section>
-
-<div class="gold-divider"></div>
-
-<!-- BOTTOM CTA -->
-
-<section class="bottom-cta">
-  <h2>The work is<br><em>waiting for you.</em></h2>
-  <p>Join the waitlist now. Be first when the doors open. And if you're ready to go all in — claim your founding member spot before it's gone.</p>
-
-  <div class="waitlist-form" style="max-width:440px;margin:0 auto 16px;">
-    <div id="bottomFormWrap">
-      <div class="form-row">
-        <input type="email" id="bottomEmailInput" placeholder="your@email.com"/>
-        <button class="submit-btn" onclick="handleBottomSubmit()">Join Waitlist</button>
-      </div>
+<div id="mainapp">
+  <nav>
+    <span class="nav-brand">The Alchemist's Companion</span>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="today">Today</button>
+      <button class="nav-tab" data-tab="library">Library</button>
     </div>
-    <div class="success-msg" id="bottomSuccessMsg">
-      <p>You're on the list. See you on the other side.</p>
-      <span>That's alchemy.</span>
+  </nav>
+
+  <!-- TODAY -->
+
+  <div class="tab-panel active" id="tab-today">
+    <p class="greeting" id="greeting" style="padding:20px 24px 0"></p>
+    <div style="padding:0 24px"><div class="signs-row" id="signsRow"></div></div>
+
+```
+<div style="padding:0 24px;" id="cotdSection">
+  <div class="cotd-loading" id="cotdLoading">
+    <span class="spin">⊛</span>
+    <p>Pulling your card for today…</p>
+  </div>
+  <div id="cotdContent" class="hidden"></div>
+</div>
+```
+
+  </div>
+
+  <!-- LIBRARY -->
+
+  <div class="tab-panel" id="tab-library">
+    <div class="lib-header">
+      <h2>The Card Library</h2>
+      <p>Every card taught through the shadow work lens. Not just what it means — but what it's really asking of you.</p>
+    </div>
+    <div class="suite-tabs" id="suiteTabs"></div>
+    <div class="cards-list" id="cardsList"></div>
+  </div>
+</div>
+
+<!-- CARD DETAIL -->
+
+<div class="card-detail" id="cardDetail">
+  <div class="detail-nav">
+    <button class="detail-back" id="detailBack">←</button>
+    <span class="detail-title" id="detailTitle">Card Study</span>
+  </div>
+  <div class="detail-body" id="detailBody">
+    <div class="detail-loading">
+      <span class="spin">⊛</span>
+      <p style="font-family:'Cormorant',serif;font-style:italic;font-size:17px;color:#9A8E78">Channeling the card's wisdom…</p>
     </div>
   </div>
-  <p style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;color:#5A5448;text-transform:uppercase;margin-top:8px">No spam. Ever. Just the work.</p>
-</section>
+</div>
 
-<footer>
-  The Alchemist's Companion &nbsp;·&nbsp; Cade the Alchemist &nbsp;·&nbsp; © 2025
-</footer>
-
-</div><!-- .page -->
+</div>
 
 <script>
-// ── Stars ──
-const starsEl = document.getElementById('stars');
-for(let i=0;i<60;i++){
-  const s=document.createElement('div');
-  s.className='star';
-  const size=Math.random()*1.8+.4;
-  s.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*5}s;--delay:${Math.random()*6}s;--op:${.15+Math.random()*.5}`;
-  starsEl.appendChild(s);
+// ── DATA ──
+const SIGNS = [
+  {sym:'♈',name:'Aries'},{sym:'♉',name:'Taurus'},{sym:'♊',name:'Gemini'},
+  {sym:'♋',name:'Cancer'},{sym:'♌',name:'Leo'},{sym:'♍',name:'Virgo'},
+  {sym:'♎',name:'Libra'},{sym:'♏',name:'Scorpio'},{sym:'♐',name:'Sagittarius'},
+  {sym:'♑',name:'Capricorn'},{sym:'♒',name:'Aquarius'},{sym:'♓',name:'Pisces'}
+];
+
+// Astrological card correlations
+const SIGN_CARDS = {
+  'Aries': ['The Emperor','Two of Wands','Three of Wands','Four of Wands'],
+  'Taurus': ['The Hierophant','Five of Pentacles','Six of Pentacles','Seven of Pentacles'],
+  'Gemini': ['The Lovers','Eight of Swords','Nine of Swords','Ten of Swords'],
+  'Cancer': ['The Chariot','Two of Cups','Three of Cups','Four of Cups'],
+  'Leo': ['Strength','Five of Wands','Six of Wands','Seven of Wands'],
+  'Virgo': ['The Hermit','Eight of Pentacles','Nine of Pentacles','Ten of Pentacles'],
+  'Libra': ['Justice','Two of Swords','Three of Swords','Four of Swords'],
+  'Scorpio': ['Death','Five of Cups','Six of Cups','Seven of Cups'],
+  'Sagittarius': ['Temperance','Eight of Wands','Nine of Wands','Ten of Wands'],
+  'Capricorn': ['The Devil','Two of Pentacles','Three of Pentacles','Four of Pentacles'],
+  'Aquarius': ['The Star','Five of Swords','Six of Swords','Seven of Swords'],
+  'Pisces': ['The Moon','Eight of Cups','Nine of Cups','Ten of Cups']
+};
+
+const SUITES = ['Major Arcana','Wands','Cups','Swords','Pentacles'];
+
+const DECK = {
+  'Major Arcana': [
+    {roman:'0',name:'The Fool',icon:'🌀',keywords:'beginnings, leap of faith, trust, innocence',element:'Air',theme:'The part of you that hasn\'t been shaped by fear yet'},
+    {roman:'I',name:'The Magician',icon:'✦',keywords:'will, manifestation, skill, power',element:'Air / Mercury',theme:'The power that was always yours — you just forgot'},
+    {roman:'II',name:'The High Priestess',icon:'🌙',keywords:'intuition, mystery, the unseen, inner knowing',element:'Water / Moon',theme:'What you know before you know you know it'},
+    {roman:'III',name:'The Empress',icon:'🌿',keywords:'creation, embodiment, abundance, receiving',element:'Earth / Venus',theme:'Receiving without guilt — your body as sacred ground'},
+    {roman:'IV',name:'The Emperor',icon:'♦',keywords:'structure, authority, foundation, sovereignty',element:'Fire / Aries',theme:'Building from the inside out — not control, but rootedness'},
+    {roman:'V',name:'The Hierophant',icon:'⊕',keywords:'tradition, belief systems, initiation, the teacher',element:'Earth / Taurus',theme:'Which teachings were chosen for you vs. which you choose now'},
+    {roman:'VI',name:'The Lovers',icon:'◈',keywords:'choice, alignment, values, union',element:'Air / Gemini',theme:'The relationship you have with yourself underneath all others'},
+    {roman:'VII',name:'The Chariot',icon:'▲',keywords:'willpower, direction, triumph, forward motion',element:'Water / Cancer',theme:'Moving not away from pain but toward your own becoming'},
+    {roman:'VIII',name:'Strength',icon:'∞',keywords:'inner power, compassion, courage, taming the beast',element:'Fire / Leo',theme:'The anger and wildness you were taught to suppress'},
+    {roman:'IX',name:'The Hermit',icon:'◉',keywords:'solitude, wisdom, inner light, the long road',element:'Earth / Virgo',theme:'What you discover when the noise finally stops'},
+    {roman:'X',name:'Wheel of Fortune',icon:'⊛',keywords:'cycles, fate, turning points, the great rotation',element:'Fire / Jupiter',theme:'The part of you that resists change even when change is the healing'},
+    {roman:'XI',name:'Justice',icon:'⚖',keywords:'truth, accountability, cause and effect, clarity',element:'Air / Libra',theme:'The reckoning that isn\'t punishment — it\'s alignment'},
+    {roman:'XII',name:'The Hanged One',icon:'⟐',keywords:'surrender, new perspective, suspension, waiting',element:'Water / Neptune',theme:'The gift hidden inside the pause you didn\'t choose'},
+    {roman:'XIII',name:'Death',icon:'🜄',keywords:'transformation, endings, transition, necessary loss',element:'Water / Scorpio',theme:'What you are being asked to bury so something true can grow'},
+    {roman:'XIV',name:'Temperance',icon:'◇',keywords:'integration, balance, alchemy, the middle path',element:'Fire / Sagittarius',theme:'Becoming whole — not perfect, whole'},
+    {roman:'XV',name:'The Devil',icon:'⧖',keywords:'shadow, attachment, illusion of captivity, reclaiming',element:'Earth / Capricorn',theme:'The chains that feel permanent but were never locked'},
+    {roman:'XVI',name:'The Tower',icon:'⚡',keywords:'sudden change, collapse of illusion, revelation, liberation',element:'Fire / Mars',theme:'What had to fall apart because it was never really you'},
+    {roman:'XVII',name:'The Star',icon:'★',keywords:'hope, healing, authenticity, the exhale',element:'Air / Aquarius',theme:'Who you are when you stop performing survival'},
+    {roman:'XVIII',name:'The Moon',icon:'☽',keywords:'the unconscious, fear, illusion, the deep water',element:'Water / Pisces',theme:'What lives in you that you haven\'t looked at directly yet'},
+    {roman:'XIX',name:'The Sun',icon:'☀',keywords:'vitality, joy, clarity, full presence',element:'Fire / Sun',theme:'The version of you that exists before shame got there first'},
+    {roman:'XX',name:'Judgement',icon:'🜁',keywords:'awakening, the call, reclamation, rising',element:'Fire / Pluto',theme:'The life that is waiting for you to say yes to yourself'},
+    {roman:'XXI',name:'The World',icon:'◎',keywords:'completion, wholeness, integration, your essence',element:'Earth / Saturn',theme:'What it feels like to finally arrive inside yourself'},
+  ],
+  'Wands': [
+    {roman:'Ace',name:'Ace of Wands',icon:'🜂',keywords:'creative spark, initiation, desire, the first flame',element:'Fire',theme:'The yes before fear talks you out of it'},
+    {roman:'II',name:'Two of Wands',icon:'⟁',keywords:'vision, planning, bold horizons, the wider view',element:'Fire',theme:'Daring to want more than you were given permission to want'},
+    {roman:'III',name:'Three of Wands',icon:'⊿',keywords:'expansion, foresight, momentum, watching it unfold',element:'Fire',theme:'Trusting what you set in motion even when you can\'t see it yet'},
+    {roman:'IV',name:'Four of Wands',icon:'⬡',keywords:'celebration, homecoming, community, belonging',element:'Fire',theme:'Receiving joy without waiting for it to be taken away'},
+    {roman:'V',name:'Five of Wands',icon:'✧',keywords:'conflict, competition, scattered energy, friction',element:'Fire',theme:'The chaos that comes when everyone\'s fire meets'},
+    {roman:'VI',name:'Six of Wands',icon:'◐',keywords:'victory, recognition, confidence, momentum',element:'Fire',theme:'Letting yourself be witnessed without diminishing your win'},
+    {roman:'VII',name:'Seven of Wands',icon:'⊘',keywords:'defense, holding ground, conviction, the stand',element:'Fire',theme:'The exhaustion of constantly justifying your right to take up space'},
+    {roman:'VIII',name:'Eight of Wands',icon:'⬟',keywords:'swift movement, clarity, messages, rapid change',element:'Fire',theme:'What happens when you finally stop holding yourself back'},
+    {roman:'IX',name:'Nine of Wands',icon:'◆',keywords:'resilience, wariness, the last stand, wounded strength',element:'Fire',theme:'The hypervigilance that kept you safe — and now keeps you small'},
+    {roman:'X',name:'Ten of Wands',icon:'◉',keywords:'burden, overextension, responsibility, carrying too much',element:'Fire',theme:'What you keep carrying that was never meant to be yours'},
+  ],
+  'Cups': [
+    {roman:'Ace',name:'Ace of Cups',icon:'♡',keywords:'emotional opening, new feeling, love, the overflow',element:'Water',theme:'Allowing yourself to be moved without drowning in it'},
+    {roman:'II',name:'Two of Cups',icon:'◈',keywords:'connection, partnership, mutual recognition, the bond',element:'Water',theme:'Being truly met — and letting yourself believe you deserve it'},
+    {roman:'III',name:'Three of Cups',icon:'∞',keywords:'community, celebration, sisterhood, joy shared',element:'Water',theme:'The friendships that hold you without requiring you to shrink'},
+    {roman:'IV',name:'Four of Cups',icon:'⬡',keywords:'apathy, withdrawal, reassessment, the gift overlooked',element:'Water',theme:'The numbness that is actually grief with nowhere to go'},
+    {roman:'V',name:'Five of Cups',icon:'⟐',keywords:'loss, grief, regret, the spilled cups',element:'Water',theme:'Mourning what was real — not rushing past it into lesson mode'},
+    {roman:'VI',name:'Six of Cups',icon:'⊕',keywords:'nostalgia, innocence, memory, the past revisiting',element:'Water',theme:'What your younger self needed — and whether you can offer it now'},
+    {roman:'VII',name:'Seven of Cups',icon:'★',keywords:'fantasy, illusion, choices, the seductive fog',element:'Water',theme:'The dreams that keep you comfortable and out of action'},
+    {roman:'VIII',name:'Eight of Cups',icon:'☽',keywords:'walking away, release, the search for meaning',element:'Water',theme:'The courage it takes to leave something that still has love in it'},
+    {roman:'IX',name:'Nine of Cups',icon:'◐',keywords:'satisfaction, fulfillment, the wish granted',element:'Water',theme:'What you would wish for if you believed you were allowed to have it'},
+    {roman:'X',name:'Ten of Cups',icon:'☀',keywords:'emotional wholeness, family, belonging, the full heart',element:'Water',theme:'What home feels like when it\'s inside you, not just around you'},
+  ],
+  'Swords': [
+    {roman:'Ace',name:'Ace of Swords',icon:'✧',keywords:'clarity, breakthrough, truth, the new mind',element:'Air',theme:'The thought that changes everything — if you let it land'},
+    {roman:'II',name:'Two of Swords',icon:'◇',keywords:'stalemate, avoidance, the hard choice delayed',element:'Air',theme:'What you already know but aren\'t ready to act on yet'},
+    {roman:'III',name:'Three of Swords',icon:'⊗',keywords:'heartbreak, sorrow, grief, the necessary cut',element:'Air',theme:'The truth that hurt because it was real'},
+    {roman:'IV',name:'Four of Swords',icon:'⧖',keywords:'rest, recuperation, the deliberate pause',element:'Air',theme:'Stillness as strategy, not defeat'},
+    {roman:'V',name:'Five of Swords',icon:'⊘',keywords:'conflict, hollow victory, ego, the aftermath',element:'Air',theme:'Winning in a way that cost you something more important'},
+    {roman:'VI',name:'Six of Swords',icon:'▲',keywords:'transition, moving on, the calmer waters ahead',element:'Air',theme:'Leaving without needing the departure to be honored'},
+    {roman:'VII',name:'Seven of Swords',icon:'⟁',keywords:'deception, strategy, avoidance, the half-truth',element:'Air',theme:'Where you are not being honest — with yourself most of all'},
+    {roman:'VIII',name:'Eight of Swords',icon:'◉',keywords:'mental imprisonment, self-limitation, the blindfold',element:'Air',theme:'The cage built from old stories you forgot were stories'},
+    {roman:'IX',name:'Nine of Swords',icon:'⊛',keywords:'anxiety, the dark night, dread, the mind spiraling',element:'Air',theme:'3am and everything it shows you — and what it\'s trying to protect'},
+    {roman:'X',name:'Ten of Swords',icon:'🜄',keywords:'ending, rock bottom, the necessary collapse',element:'Air',theme:'The moment after the worst of it — when the only direction is through'},
+  ],
+  'Pentacles': [
+    {roman:'Ace',name:'Ace of Pentacles',icon:'⬟',keywords:'material beginnings, grounded opportunity, prosperity',element:'Earth',theme:'The invitation to build something real — and whether you trust it'},
+    {roman:'II',name:'Two of Pentacles',icon:'♦',keywords:'balance, juggling, adaptability, the dance',element:'Earth',theme:'What you keep spinning because you\'re afraid to choose one thing'},
+    {roman:'III',name:'Three of Pentacles',icon:'◈',keywords:'collaboration, craft, the work improving',element:'Earth',theme:'Letting others witness your becoming without needing to perform it'},
+    {roman:'IV',name:'Four of Pentacles',icon:'⧖',keywords:'holding on, security, control, the closed fist',element:'Earth',theme:'The scarcity wound beneath the need to hold everything tightly'},
+    {roman:'V',name:'Five of Pentacles',icon:'⊗',keywords:'hardship, lack, isolation, feeling left out in the cold',element:'Earth',theme:'The help that is available — and why you haven\'t let it in'},
+    {roman:'VI',name:'Six of Pentacles',icon:'⬡',keywords:'generosity, receiving, reciprocity, the flow of resources',element:'Earth',theme:'Your relationship with receiving — money, support, recognition'},
+    {roman:'VII',name:'Seven of Pentacles',icon:'◐',keywords:'patience, investment, the long game, assessment',element:'Earth',theme:'Trusting the work that has no visible result yet'},
+    {roman:'VIII',name:'Eight of Pentacles',icon:'✦',keywords:'mastery, dedication, craft deepening, devotion',element:'Earth',theme:'Doing the work when no one is watching'},
+    {roman:'IX',name:'Nine of Pentacles',icon:'★',keywords:'self-sufficiency, abundance, earned independence',element:'Earth',theme:'Arriving at the life you built — and allowing yourself to rest in it'},
+    {roman:'X',name:'Ten of Pentacles',icon:'◎',keywords:'legacy, generational abundance, belonging, the deep root',element:'Earth',theme:'What you are building that will outlast this moment'},
+  ]
+};
+
+// ── STATE ──
+let userSigns = { sun:null, moon:null, rising:null };
+let currentSuite = 'Major Arcana';
+
+// ── CHECK FOR RETURNING USER ──
+function checkReturningUser() {
+  const saved = localStorage.getItem('alchemist_signs');
+  if (saved) {
+    try {
+      userSigns = JSON.parse(saved);
+      // Skip onboarding — go straight to app
+      document.getElementById('onboarding').style.display = 'none';
+      document.getElementById('mainapp').style.display = 'flex';
+      initApp();
+      return true;
+    } catch(e) { localStorage.removeItem('alchemist_signs'); }
+  }
+  return false;
 }
 
-// ── Scroll reveal ──
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+// ── ONBOARDING ──
+function buildSignGrids() {
+  // Add progress bar to onboarding
+  const onb = document.getElementById('onboarding');
+  const progressHtml = `
+    <div style="display:flex;gap:6px;width:100%;margin-bottom:28px;">
+      <div id="prog-sun" style="height:2px;flex:1;background:rgba(200,168,75,0.15);transition:background 0.3s;"></div>
+      <div id="prog-moon" style="height:2px;flex:1;background:rgba(200,168,75,0.15);transition:background 0.3s;"></div>
+      <div id="prog-rising" style="height:2px;flex:1;background:rgba(200,168,75,0.15);transition:background 0.3s;"></div>
+    </div>`;
+  onb.insertAdjacentHTML('afterbegin', progressHtml);
 
-// ── Animated counter ──
-let count = 247;
-function animateCount(){
-  const el=document.getElementById('countDisplay');
-  if(!el)return;
-  let start=0; const end=count;
-  const dur=1200; const step=dur/end;
-  let current=0;
-  const timer=setInterval(()=>{
-    current+=Math.ceil(end/60);
-    if(current>=end){current=end;clearInterval(timer);}
-    el.textContent=current.toLocaleString();
-  },step);
+  ['sun','moon','rising'].forEach(type => {
+    const grid = document.getElementById(type+'Grid');
+    SIGNS.forEach(sign => {
+      const btn = document.createElement('button');
+      btn.className = 'sign-btn';
+      btn.innerHTML = `<span class="sym">${sign.sym}</span><span class="nm">${sign.name}</span>`;
+      btn.addEventListener('click', () => {
+        grid.querySelectorAll('.sign-btn').forEach(b => b.classList.remove('picked'));
+        btn.classList.add('picked');
+        userSigns[type] = sign;
+        // Update progress bar
+        document.getElementById('prog-'+type).style.background = '#C8A84B';
+        checkReady();
+      });
+      grid.appendChild(btn);
+    });
+  });
 }
-setTimeout(animateCount,1000);
 
-// ── Form handlers ──
-function collectEmail(emailId, wrapId, successId){
-  const email=document.getElementById(emailId).value.trim();
-  if(!email||!email.includes('@')){
-    document.getElementById(emailId).style.outline='1px solid rgba(200,100,100,0.5)';
-    return;
+function checkReady() {
+  document.getElementById('beginBtn').disabled = !(userSigns.sun && userSigns.moon && userSigns.rising);
+}
+
+document.getElementById('beginBtn').addEventListener('click', () => {
+  // Save placements for return visits
+  localStorage.setItem('alchemist_signs', JSON.stringify(userSigns));
+  document.getElementById('onboarding').style.display = 'none';
+  document.getElementById('mainapp').style.display = 'flex';
+  initApp();
+});
+
+// ── INIT ──
+function initApp() {
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('greeting').innerHTML =
+    `<span style="font-family:'Cormorant',serif;font-style:italic;font-size:16px;color:#9A8E78">${greet} — your practice is ready for you 🖤</span>`;
+
+  const strip = document.getElementById('signsRow');
+  strip.innerHTML = '';
+  [['Sun',userSigns.sun],['Moon',userSigns.moon],['Rising',userSigns.rising]].forEach(([label,sign]) => {
+    strip.innerHTML += `<div class="sign-chip">${label}: <span>${sign.sym} ${sign.name}</span></div>`;
+  });
+
+  // Add reset option for return users
+  const resetHtml = `<button onclick="resetPlacements()" style="background:none;border:none;color:#5A5448;font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;padding:0;margin-top:4px;">Change my placements</button>`;
+  document.getElementById('signsRow').insertAdjacentHTML('afterend', resetHtml);
+
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  loadCOTD();
+  buildLibrary();
+}
+
+function resetPlacements() {
+  localStorage.removeItem('alchemist_signs');
+  localStorage.removeItem('alchemist_signs');
+  userSigns = { sun:null, moon:null, rising:null };
+  document.getElementById('mainapp').style.display = 'none';
+  document.getElementById('onboarding').style.display = 'flex';
+  // Reset progress bars
+  ['sun','moon','rising'].forEach(t => {
+    const el = document.getElementById('prog-'+t);
+    if(el) el.style.background = 'rgba(200,168,75,0.15)';
+  });
+  // Reset picked buttons
+  document.querySelectorAll('.sign-btn').forEach(b => b.classList.remove('picked'));
+  document.getElementById('beginBtn').disabled = true;
+}
+
+// ── CARD OF THE DAY ──
+function pickCard() {
+  const allCards = Object.values(DECK).flat();
+  const sunName = userSigns.sun.name;
+  const sunCards = SIGN_CARDS[sunName] || [];
+
+  // 40% chance of pulling an astrologically relevant card
+  if (Math.random() < 0.4 && sunCards.length > 0) {
+    const cardName = sunCards[Math.floor(Math.random() * sunCards.length)];
+    const found = allCards.find(c => c.name === cardName);
+    if (found) return found;
   }
 
-  // Submit to Mailchimp
-  const mcUrl = 'https://outlook.us13.list-manage.com/subscribe/post?u=b20d17d16d68cd226b79896da&id=284314095c&f_id=006a00e9f0';
-  const formData = new FormData();
-  formData.append('EMAIL', email);
-  formData.append('tags', 'App Waitlist');
-  formData.append('b_b20d17d16d68cd226b79896da_284314095c', ''); // honeypot
-
-  fetch(mcUrl, {
-    method: 'POST',
-    body: formData,
-    mode: 'no-cors' // Mailchimp requires this
-  }).catch(()=>{}); // no-cors means we can't read response, that's okay
-
-  // Show success regardless (Mailchimp no-cors always looks like an error)
-  document.getElementById(wrapId).style.display='none';
-  document.getElementById(successId).style.display='block';
-  count++;
-  document.getElementById('countDisplay').textContent=count.toLocaleString();
+  // Otherwise seed by date + sun sign for consistency through the day
+  const seed = new Date().toDateString() + sunName;
+  let hash = 0;
+  for(let i=0;i<seed.length;i++) hash = ((hash<<5)-hash)+seed.charCodeAt(i);
+  return allCards[Math.abs(hash) % allCards.length];
 }
 
-function handleSubmit(){ collectEmail('emailInput','formWrap','successMsg'); }
-function handleFounderSubmit(){ collectEmail('founderEmailInput','founderFormWrap','founderSuccessMsg'); }
-function handleBottomSubmit(){ collectEmail('bottomEmailInput','bottomFormWrap','bottomSuccessMsg'); }
+async function loadCOTD() {
+  const card = pickCard();
+  const today = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
 
-// Enter key support
-['emailInput','founderEmailInput','bottomEmailInput'].forEach((id,i)=>{
-  const el=document.getElementById(id);
-  if(el) el.addEventListener('keydown',e=>{
-    if(e.key==='Enter'){
-      [handleSubmit,handleFounderSubmit,handleBottomSubmit][i]();
-    }
-  });
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:`You are Cade the Alchemist — a warm, real, shadow work facilitator and tarot teacher. Your voice is like a best friend who genuinely knows the cards and knows you. You're celebratory, direct, a little playful, and you never bypass the shadow. You use language like "bestie", "clock it", "I'm so proud of you", "let's talk about it." You honor difficulty without dwelling in it. No toxic positivity. No generic spirituality.
+
+The message field should follow this structure:
+1. Open with a brief, grounded definition of what this card actually means — just 1 sentence that gives the seeker enough context to understand the card's core energy. Not vague. Specific. Example: "The Star is the card of hope after devastation — it's the exhale that comes after everything has fallen apart and you're still standing."
+2. Then transition into the personalized message — how this card's energy is speaking to them specifically today, referencing their sun sign naturally. Warm, direct, like you're talking to a friend.
+Keep the full message to 3-4 sentences total. Don't give away the full card meaning — just enough to ground them before the deeper prompts.
+
+Return ONLY valid JSON, no markdown:
+{
+  "message": "1 sentence grounded definition of the card + 2-3 sentences personalizing it to the seeker today. Reference their sun sign naturally.",
+  "shadow_invitation": "1-2 sentences naming the shadow side honestly but with love — what might this card be surfacing that they don't want to look at?",
+  "journal_prompts": ["A question about what they literally notice and feel when they look at this card", "A deeper shadow work question connected to this card's energy"]
+}`,
+        messages:[{role:'user',content:`Card: ${card.name}
+Theme: ${card.theme}
+Keywords: ${card.keywords}
+Element: ${card.element}
+
+Seeker's placements:
+Sun: ${userSigns.sun.name}
+Moon: ${userSigns.moon.name}
+Rising: ${userSigns.rising.name}
+
+Today: ${today}
+
+Generate their Card of the Day.`}]
+      })
+    });
+    const data = await resp.json();
+    const raw = data.content?.find(b=>b.type==='text')?.text||'';
+    const parsed = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    renderCOTD(card, parsed, today);
+  } catch(e) {
+    renderCOTD(card, {
+      message: `${card.name} is the card of ${card.keywords.split(',')[0].trim()} — ${card.theme.toLowerCase()}. And today bestie, with your ${userSigns.sun.name} sun, this card is showing up for a reason. Something in you is ready to meet this energy.`,
+      shadow_invitation: `The shadow side of ${card.name} is worth sitting with honestly. Where are you avoiding the energy of ${card.keywords.split(',')[0].trim()} in your life right now?`,
+      journal_prompts: [`Sit with the image of ${card.name}. What's the first thing you notice? What does it make you feel in your body?`, card.theme + ' — where does this live in your life right now?']
+    }, today);
+  }
+}
+
+function renderCOTD(card, content, today) {
+  document.getElementById('cotdLoading').classList.add('hidden');
+  const el = document.getElementById('cotdContent');
+
+  el.innerHTML = `
+    <div class="cotd-card fade-in">
+      <div class="cotd-top">
+        <div class="cotd-art">
+          <div class="card-art-frame">
+            <span class="card-art-roman">${card.roman}</span>
+            <span class="card-art-icon">${card.icon}</span>
+            <span class="card-art-name">${card.name}</span>
+          </div>
+        </div>
+        <div class="cotd-info">
+          <span class="cotd-date">Card of the Day · ${today}</span>
+          <h2 class="cotd-name">${card.name}</h2>
+          <p class="cotd-keywords">${card.keywords}</p>
+        </div>
+      </div>
+      <div class="cotd-body">
+        <p class="cotd-message">${content.message}</p>
+        <div class="shadow-box">
+          <p class="shadow-label">Shadow Invitation</p>
+          <p class="shadow-text">${content.shadow_invitation}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="journal-section fade-in">
+      <div class="journal-header">
+        <span class="journal-label">🖤 Your Journal</span>
+      </div>
+      <div class="journal-prompts">
+        ${content.journal_prompts.map(p => `<p class="journal-prompt">${p}</p>`).join('')}
+      </div>
+      <textarea class="journal-textarea" id="journalEntry" placeholder="Write what comes up… this is just for you."></textarea>
+
+```
+  <button class="save-btn" onclick="saveJournal('${card.name}')">Save Entry</button>
+  <p class="save-confirm" id="saveConfirm">Saved 🖤</p>
+</div>
+
+<button class="study-link" onclick="openCardDetail(${JSON.stringify(card).replace(/"/g,'&quot;')})">
+  <span>Study ${card.name} in depth</span>
+  <span>→</span>
+</button>`;
+```
+
+el.classList.remove(‘hidden’);
+}
+
+function saveJournal(cardName) {
+const entry = document.getElementById(‘journalEntry’).value.trim();
+if (!entry) return;
+const key = `journal_${cardName}_${new Date().toDateString()}`;
+localStorage.setItem(key, entry);
+document.getElementById(‘saveConfirm’).style.display = ‘block’;
+setTimeout(() => document.getElementById(‘saveConfirm’).style.display = ‘none’, 2000);
+}
+
+// ── LIBRARY ──
+function buildLibrary() {
+const tabsEl = document.getElementById(‘suiteTabs’);
+SUITES.forEach(suite => {
+const btn = document.createElement(‘button’);
+btn.className = ‘suite-tab’ + (suite === currentSuite ? ’ active’ : ‘’);
+btn.textContent = suite;
+btn.addEventListener(‘click’, () => {
+document.querySelectorAll(’.suite-tab’).forEach(b => b.classList.remove(‘active’));
+btn.classList.add(‘active’);
+currentSuite = suite;
+renderCardList(suite);
 });
+tabsEl.appendChild(btn);
+});
+renderCardList(currentSuite);
+}
+
+function renderCardList(suite) {
+const el = document.getElementById(‘cardsList’);
+el.innerHTML = ‘’;
+DECK[suite].forEach(card => {
+const row = document.createElement(‘div’);
+row.className = ‘card-row’;
+row.innerHTML = ` <div class="cr-icon">${card.icon}</div> <div class="cr-info"> <p class="cr-name">${card.roman} · ${card.name}</p> <p class="cr-keywords">${card.keywords.split(',').slice(0,3).join(', ')}</p> </div> <span class="cr-arrow">→</span>`;
+row.addEventListener(‘click’, () => openCardDetail(card));
+el.appendChild(row);
+});
+}
+
+// ── CARD DETAIL ──
+async function openCardDetail(card) {
+const detail = document.getElementById(‘cardDetail’);
+document.getElementById(‘detailTitle’).textContent = card.name;
+detail.classList.add(‘open’);
+document.getElementById(‘detailBody’).innerHTML = ` <div class="detail-loading"> <span class="spin">⊛</span> <p style="font-family:'Cormorant',serif;font-style:italic;font-size:17px;color:#9A8E78">Channeling the card's wisdom…</p> </div>`;
+
+try {
+const resp = await fetch(‘https://api.anthropic.com/v1/messages’, {
+method:‘POST’,
+headers:{‘Content-Type’:‘application/json’},
+body: JSON.stringify({
+model:‘claude-sonnet-4-20250514’,
+max_tokens:1000,
+system:`You are Cade the Alchemist — shadow work facilitator and tarot teacher. Warm, direct, real. You teach through the shadow work lens. You celebrate breakthroughs. You don’t bypass difficulty. You sound like a knowledgeable friend, not a textbook.
+
+Return ONLY valid JSON, no markdown:
+{
+“upright_meaning”: “2-3 sentences on upright meaning — warm, real, shadow-aware”,
+“shadow_meaning”: “2-3 sentences on the shadow or reversed expression — what wound or pattern this points to”,
+“in_a_reading”: “2 sentences on what this card is asking the reader to explore when it appears”,
+“alchemy_connection”: “1-2 sentences connecting this card to inner transformation and reclamation”,
+“what_do_you_notice”: “Ask them to look at the symbolism of this card and describe what they notice — make it specific to this card’s imagery”,
+“study_question”: “One deep shadow work question for the student learning this card”
+}`, messages:[{role:'user',content:`Teach ${card.name}.
+Theme: ${card.theme}
+Keywords: ${card.keywords}
+Element: ${card.element}`}] }) }); const data = await resp.json(); const raw = data.content?.find(b=>b.type==='text')?.text||''; const parsed = JSON.parse(raw.replace(/```json|```/g,'').trim()); renderCardDetail(card, parsed); } catch(e) { renderCardDetail(card, { upright_meaning: `${card.name} carries the energy of ${card.keywords}. When this card appears upright it’s inviting you into ${card.theme.toLowerCase()}.`, shadow_meaning: `In its shadow expression ${card.name} can point to avoidance or an overextension of its core energy. Where are you out of balance with what this card represents?`, in_a_reading: `When ${card.name} appears it’s asking you to get honest about your relationship with ${card.keywords.split(’,’)[0].trim()}. Nothing this card brings is accidental.`, alchemy_connection: `This card is a portal into the real work — the kind that changes you slowly, then all at once. That’s alchemy.`, what_do_you_notice: `Look at the imagery of ${card.name}. What’s the first thing you notice? What does the energy of the card make you feel in your body?`,
+study_question: card.theme + ’ — where does this live in your life right now?’
+});
+}
+}
+
+function renderCardDetail(card, content) {
+document.getElementById(‘detailBody’).innerHTML = `
+<div class="detail-visual fade-in">
+<div class="detail-card-face">
+<span class="dcf-roman">${card.roman}</span>
+<span class="dcf-icon">${card.icon}</span>
+<span class="dcf-name">${card.name}</span>
+</div>
+<div class="detail-quickinfo">
+<div>
+<p class="dq-label">Element</p>
+<p class="dq-val">${card.element}</p>
+</div>
+<div>
+<p class="dq-label">Core Theme</p>
+<p class="dq-val" style="font-style:italic;font-size:13px;color:#9A8E78">${card.theme}</p>
+</div>
+</div>
+</div>
+
+```
+<div class="kw-list fade-in">
+  ${card.keywords.split(',').map(k=>`<span class="kw-tag">${k.trim()}</span>`).join('')}
+</div>
+
+<div class="detail-section fade-in">
+  <p class="ds-heading">Upright Meaning</p>
+  <p class="ds-text">${content.upright_meaning}</p>
+</div>
+
+<div class="detail-section detail-shadow fade-in">
+  <p class="ds-heading">Shadow Expression</p>
+  <p class="ds-text">${content.shadow_meaning}</p>
+</div>
+
+<div class="detail-section fade-in">
+  <p class="ds-heading">In a Reading</p>
+  <p class="ds-text">${content.in_a_reading}</p>
+</div>
+
+<div class="detail-section fade-in">
+  <p class="ds-heading">The Alchemy</p>
+  <p class="ds-text">${content.alchemy_connection}</p>
+</div>
+
+<div class="journal-section fade-in" style="margin-top:8px">
+  <div class="journal-header">
+    <span class="journal-label">🖤 What Do You Notice?</span>
+  </div>
+  <p class="journal-prompt" style="font-size:15px;font-style:italic;color:#EDE0C4;line-height:1.7;padding-left:12px;border-left:1px solid rgba(200,168,75,0.2)">${content.what_do_you_notice}</p>
+  <textarea class="journal-textarea" placeholder="Write everything you see, feel, and notice…"></textarea>
+  <p class="journal-prompt" style="font-size:15px;font-style:italic;color:#EDE0C4;line-height:1.7;padding-left:12px;border-left:1px solid rgba(200,168,75,0.2);margin-top:8px">${content.study_question}</p>
+  <textarea class="journal-textarea" placeholder="Go deep…"></textarea>
+  <button class="save-btn">Save Reflections</button>
+</div>`;
+```
+
+}
+
+document.getElementById(‘detailBack’).addEventListener(‘click’, () => {
+document.getElementById(‘cardDetail’).classList.remove(‘open’);
+});
+
+// ── BOOT ──
+buildSignGrids();
+checkReturningUser();
 </script>
 
 </body>
